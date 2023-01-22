@@ -1,4 +1,4 @@
-from os import listdir, rename
+from os import listdir, rename, mkdir, makedirs, path
 
 class Content_Menager():
     def __init__(self, path, file_name, new_file_name, file_type):
@@ -10,19 +10,55 @@ class Content_Menager():
 
     def rename_auto(self):
         files = listdir(self.path)
-        counter = int(input("Enter the starting numbering value."))   # User can choose from which number wants start numbering
+        counter = int(input("Enter the starting numbering value: "))   # User can choose from which number wants start numbering
+
         for file in files:
             if file.endswith(self.file_type):
                 new_name = self.new_file_name + counter + self.file_type
-                rename(f'{self.path}/{file}', f'{self.path}/{new_name}')
+
+                path_file = path.join(self.path, file)
+                path_new_name = path.join(self.path, new_name)
+
+                rename(path_file,path_new_name)
                 counter += 1
-        print("Successful change of name")
+
+        print("Successful change of names.")
 
     def rename_manual(self):
         files = listdir(self.path)
+
         for file in files:
             if file.endswith(self.file_type):
-                new_name = str(input("Enter the new name")) + self.file_type   # User chooses a filename
-                rename(f'{self.path}/{file}',f'{self.path}/{new_name}')
-        print("Successful change of name")
+                new_name = str(input("Enter the new name: ")) + self.file_type   # User chooses a filename
+
+                path_file = path.join(self.path, file)
+                path_new_name = path.join(self.path, new_name)
+
+                rename(path_file,path_new_name)
+
+        print("Successful change of name.")
+
+
+    def make_direction(self):
+        qt_folders = int(input("How many folders you need: "))
+            # raise
+        if qt_folders == 1:
+            folder_name = str(input("Enter the folder name: "))
+            path_folder = path.join(self.path, folder_name)
+            mkdir(path_folder)
+        else:
+            counter = 1
+            folder_name = str(input("Enter the folder name: "))
+            for _ in range(qt_folders+1):
+                path_folder = path.join(self.path, f'{folder_name}({str(counter)})')
+                mkdir(path_folder)
+                counter += 1
+    def files_move(self):
+        pass
+
+    def remove_files(self):
+        pass
+
+    def searching_file(self):
+        pass
 

@@ -4,7 +4,7 @@ import re
 
 # Automatyczne doliczanie nr pliku
 
-
+"""
 def rename(path, new_name, format):
     files = os.listdir(path)
     counter = 1
@@ -14,15 +14,15 @@ def rename(path, new_name, format):
             nname = new_name + ((len(str(len(files))) - len(str(counter))) * '0') + str(counter) + '.' + format
             os.rename(f'{path}/{file}', f'{path}/{nname}')
             counter += 1
+"""
 
-
-files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
+# files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
 # files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_second_idea'
 
 # files_dir = input("Enter the path: ")
 # print(type(files_dir))
-frm = 'txt'
-rename(files_dir, 'B', frm)
+# frm = 'txt'
+# rename(files_dir, 'B', frm)
 
 
 # Ręczne podawanie nazwy
@@ -58,4 +58,27 @@ file_dir = os.path.abspath('Test0027')
 frm = '.*.txt'
 rename(files_dir, 'notatnik', frm)
 """
+
+
+def make_direction(path):
+    qt_folders = int(input("How many folders you need: "))
+    # raise
+    if qt_folders == 1:
+        folder_name = str(input("Enter the folder name: "))
+        path_folder = os.path.join(path, folder_name)
+        os.mkdir(path_folder)
+    else:
+        counter = 1
+        folder_name = str(input("Enter the folder name: "))
+        for _ in range(qt_folders):
+            path_folder = os.path.join(path, f'{folder_name}({str(counter)})')
+            os.mkdir(path_folder)
+            counter += 1
+
+x = "D:\_Python\Roboczy\\files_rename"
+y = "Test3"
+
+make_direction(x)
+
+
 
