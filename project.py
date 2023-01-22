@@ -1,4 +1,4 @@
-from os import listdir, rename, mkdir, path
+from os import listdir, rename, mkdir, path, remove
 
 class Content_Menager():
     def __init__(self, path, file_name, new_file_name, file_type):
@@ -56,8 +56,10 @@ class Content_Menager():
     def files_move(self):
         pass
 
-    def remove_files(self):
-        pass
+    def delete_file(self):
+        file_to_remove = str(input("Enter the name of file which would you delete: "))
+        remove_path = path.join(self.path)
+        remove()
 
     def searching_file(self):
         pass
