@@ -1,4 +1,4 @@
-from os import listdir, rename, mkdir, makedirs, path
+from os import listdir, rename, mkdir, path
 
 class Content_Menager():
     def __init__(self, path, file_name, new_file_name, file_type):
@@ -46,13 +46,13 @@ class Content_Menager():
             folder_name = str(input("Enter the folder name: "))
             path_folder = path.join(self.path, folder_name)
             mkdir(path_folder)
+            print("The folder has been created")
         else:
-            counter = 1
             folder_name = str(input("Enter the folder name: "))
-            for _ in range(qt_folders+1):
-                path_folder = path.join(self.path, f'{folder_name}({str(counter)})')
+            for number in range(1, qt_folders+1):
+                path_folder = path.join(self.path, f'{folder_name} ({str(number)})')
                 mkdir(path_folder)
-                counter += 1
+            print("The folder's has been created")
     def files_move(self):
         pass
 

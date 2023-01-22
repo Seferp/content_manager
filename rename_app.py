@@ -68,17 +68,17 @@ def make_direction(path):
         path_folder = os.path.join(path, folder_name)
         os.mkdir(path_folder)
     else:
-        counter = 1
+        # counter = 1
         folder_name = str(input("Enter the folder name: "))
-        for _ in range(qt_folders):
-            path_folder = os.path.join(path, f'{folder_name}({str(counter)})')
+        for number in range(1, qt_folders+1):
+            path_folder = os.path.join(path, f'{folder_name} ({str(number)})')
             os.mkdir(path_folder)
-            counter += 1
+            # counter += 1
 
 x = "D:\_Python\Roboczy\\files_rename"
 y = "Test3"
 
 make_direction(x)
 
-
+os.remove()
 
