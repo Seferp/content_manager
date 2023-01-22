@@ -262,4 +262,4 @@ poetry.toml
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
 
-.rename_app.py
+.rename_app.py/
