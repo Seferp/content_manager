@@ -59,8 +59,11 @@ class Content_Manager():
 
     def delete_file(self):
         file_to_remove = str(input("Enter the name of file which would you delete: "))
-        remove_path = path.join(self.path,file_to_remove)
-        remove(remove_path)
+        remove_path = path.join(self.path,file_to_remove+self.file_type)
+        if path.exists(remove_path):
+            remove(remove_path)
+        else:
+            print("File doesn't exist")
 
     def searching_file(self):
         pass
