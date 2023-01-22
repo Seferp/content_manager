@@ -10,19 +10,19 @@ def rename(path, new_name, format):
     counter = 1
     for file in files:
         if file.endswith(format):
-            file_type = file.split('.')[-1]
-            nname = new_name + ((len(str(len(files))) - len(str(counter))) * '0') + str(counter)+ '.' + file_type
+            # file_type = file.split('.')[-1]
+            nname = new_name + ((len(str(len(files))) - len(str(counter))) * '0') + str(counter) + '.' + format
             os.rename(f'{path}/{file}', f'{path}/{nname}')
             counter += 1
 
 
-# files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
+files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
 # files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_second_idea'
 
 # files_dir = input("Enter the path: ")
 # print(type(files_dir))
-# frm = 'docx'
-# rename(files_dir, 'TESTXYZ', frm)
+frm = 'txt'
+rename(files_dir, 'B', frm)
 
 
 # Ręczne podawanie nazwy
