@@ -4,25 +4,27 @@ import re
 
 # Automatyczne doliczanie nr pliku
 
-"""
+
 def rename(path, new_name, format):
-    files = os.listdir(path)
+    files = listdir(path)
     counter = 1
     for file in files:
+        files_max_char = len(str(files[-1]))
+        file_char = len(str(file))
         if file.endswith(format):
             # file_type = file.split('.')[-1]
             nname = new_name + ((len(str(len(files))) - len(str(counter))) * '0') + str(counter) + '.' + format
-            os.rename(f'{path}/{file}', f'{path}/{nname}')
+            rename(f'{path}/{file}', f'{path}/{nname}')
             counter += 1
-"""
 
-# files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
+
+files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
 # files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_second_idea'
 
 # files_dir = input("Enter the path: ")
 # print(type(files_dir))
-# frm = 'txt'
-# rename(files_dir, 'B', frm)
+frm = 'docx'
+# rename(files_dir, 'AA', frm)
 
 
 # Ręczne podawanie nazwy
@@ -93,4 +95,20 @@ def delete_file(pathe):
     remove(remove_path)
 """A0105"""
 x = "D:\_Python\Roboczy\\files_rename"
-delete_file(x)
+# delete_file(x)
+
+
+def searching_file(path, file_name):
+    files = listdir(path)
+    phrase = f'{file_name}'
+    files_list = []
+    for file in files:
+        if re.search(phrase, file):
+            files_list.append(file)
+    print(*files_list, sep= "\n")
+
+files_dir = 'D:\_Python\Roboczy\\files_rename\\files_rename_first_idea'
+x = "na"
+
+searching_file(files_dir, x)
+
