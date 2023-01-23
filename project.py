@@ -12,7 +12,7 @@ class Content_Manager():
 
     def rename_auto(self):
         files = listdir(self.path)
-        counter = int(input("Enter the starting numbering value: "))          # User can choose from which number wants start numbering
+        counter = int(input("Enter the starting numbering value: ")) # User can choose from which number wants start numbering
 
         for file in files:
             if file.endswith(self.file_type):
@@ -67,4 +67,3 @@ class Content_Manager():
 
     def searching_file(self):
         pass
-
