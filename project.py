@@ -4,13 +4,14 @@ from re import search
 
 
 class Content_Manager():
-    def __init__(self, path:str, file_type:str, mode:str):
+    def __init__(self, path:str, file_type:str, mode:str, file_name = input("Enter the file name: "),
+                 new_file_name = input("Enter the new name: "), folder_name = input("Enter the folder name: ")):
         self.path = path
         self.file_type = f'.{file_type}'
         self.mode = mode
-        self.file_name = str(input("Enter the file name: "))
-        self.new_file_name = str(input("Enter the new name: "))
-        self.folder_name = str(input("Enter the folder name: "))
+        self.file_name = file_name
+        self.new_file_name = new_file_name
+        self.folder_name = folder_name
 
 
 
