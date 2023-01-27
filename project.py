@@ -3,53 +3,54 @@ from shutil import move
 from re import search
 
 
-class Content_Manager():
-    def __init__(self, path:str, file_type:str, mode:str, file_name = input("Enter the file name: "),
-                 new_file_name = input("Enter the new name: "), folder_name = input("Enter the folder name: ")):
+class ContentManager():
+    def __init__(self, path:str, file_type:str, mode:str, file_name: str,
+                 new_file_name: str, folder_name: str, input):
         self.path = path
         self.file_type = f'.{file_type}'
         self.mode = mode
         self.file_name = file_name
         self.new_file_name = new_file_name
         self.folder_name = folder_name
+        self.input = input
 
 
 
     # Function to rename a large amounts of files according to pattern: new_name + number.
     def rename_auto(self):
         files = listdir(self.path)
-        counter = int(input("Enter the starting numbering value: "))
+        counter = 0
 
         for file in files:
-            if file.endswith(self.file_type):
-                new_name = self.new_file_name + counter + self.file_type
-                path_file = path.join(self.path, file)
-                path_new_name = path.join(self.path, new_name)
-                if path.exists(path_file):
-                    raise FileExistsError
-                else:
-                    rename(path_file,path_new_name)
-                counter += 1
+            new_name = self.new_file_name + str(counter) + self.file_type
+
+            path_file = path.join(self.path, file)
+            path_new_name = path.join(self.path, new_name)
+
+            if path.exists(path_new_name):
+                raise FileExistsError
+            else:
+                rename(path_file,path_new_name)
+            counter += 1
 
     # Function to rename file. User can choose a specific name fo each file.
     def rename_manual(self):
         files = listdir(self.path)
 
         for file in files:
-            if file.endswith(self.file_type):
-                new_name = self.new_file_name + self.file_type
+            new_name = self.new_file_name + self.file_type
 
-                path_file = path.join(self.path, file)
-                path_new_name = path.join(self.path, new_name)
+            path_file = path.join(self.path, file)
+            path_new_name = path.join(self.path, new_name)
 
-                if path.exists(path_file):
-                    raise FileExistsError
-                else:
-                    rename(path_file,path_new_name)
+            if path.exists(path_file):
+                raise FileExistsError
+            else:
+                rename(path_file,path_new_name)
 
     # Function to create folders. User can choose numbers of folders to create and the name of them.
     def make_direction(self):
-        quantity_folders = int(input("How many folders you need: "))
+        quantity_folders = self.input(int(input("How many folders you need: ")))
         if quantity_folders < 1:
             raise ValueError
         elif quantity_folders == 1:
@@ -124,12 +125,11 @@ class Content_Manager():
         if decision == 'overwrite':
             self.mode = 'w'
         elif decision == 'add':
-            self.mode == "a"
+            self.mode = "a"
         else:
             raise NameError
-            print('Please choose \'overwrite\' or \'add\'')
 
-        if self.file_type is ".docx" or self.file_type is '.txt':
+        if self.file_type == ".docx" or self.file_type == '.txt':
             with open(file_path, self.mode) as f:
                 f.write(input("Enter the text: "))
                 f.close()
