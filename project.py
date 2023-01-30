@@ -14,16 +14,15 @@ class ContentManager():
 
 # Class to rename all files in direction if type is correct according to pattern: new_name + number.
 class RenameAuto(ContentManager):
-    def __init__(self, path: str, file_type:str, new_file_name: str):
+    def __init__(self, path: str, file_type:str, new_file_name: str, counter: int):
         ContentManager.__init__(self, path, file_type,'', new_file_name,'')
-
+        self.counter = counter
     def rename_auto(self):
         files = listdir(self.path)
-        counter = 0
 
         for file in files:
             if file.endswith(self.file_type):
-                new_name = self.new_file_name + str(counter) + self.file_type
+                new_name = self.new_file_name + str(self.counter) + self.file_type
 
                 path_file = path.join(self.path, file)
                 path_new_name = path.join(self.path, new_name)
@@ -32,7 +31,7 @@ class RenameAuto(ContentManager):
                     raise FileExistsError
                 else:
                     rename(path_file,path_new_name)
-                counter += 1
+                self.counter += 1
 
 #Class to rename file. User can choose a specific name for file.
 class RenameManual(ContentManager):

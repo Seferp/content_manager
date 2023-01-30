@@ -15,21 +15,21 @@ class TestRenameAuto(unittest.TestCase):
         open(os.path.join(self.path_dir,'test4.txt'), 'x').close()
 
     def test_rename_auto(self):
-        test = RenameAuto((os.getcwd()+'\Test'), 'txt', 'test_name')
+        test = RenameAuto(self.path_dir, 'txt', 'test_name', 0)
         test.rename_auto()
-        assert os.path.exists(os.path.join(self.path_dir,'test0.txt'))
-        assert os.path.exists(os.path.join(self.path_dir,'test1.txt'))
-        assert os.path.exists(os.path.join(self.path_dir,'test2.txt'))
-        assert os.path.exists(os.path.join(self.path_dir,'test3.txt'))
-        assert os.path.exists(os.path.join(self.path_dir,'test4.txt'))
+        assert os.path.exists(os.path.join(self.path_dir,'test_name0.txt'))
+        assert os.path.exists(os.path.join(self.path_dir,'test_name1.txt'))
+        assert os.path.exists(os.path.join(self.path_dir,'test_name2.txt'))
+        assert os.path.exists(os.path.join(self.path_dir,'test_name3.txt'))
+        assert os.path.exists(os.path.join(self.path_dir,'test_name4.txt'))
 
 
-    # def tearDown(self):
-    #     shutil.rmtree(self.path_dir)
+    def tearDown(self):
+        shutil.rmtree(self.path_dir)
 
 
-# if __name__ == '__main__':
-    # unittest
+if __name__ == '__main__':
+    unittest
 
 """
     def test_rename_manual(self):
