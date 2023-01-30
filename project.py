@@ -33,7 +33,7 @@ class RenameAuto(ContentManager):
                     rename(path_file,path_new_name)
                 self.counter += 1
 
-#Class to rename file. User can choose a specific name for file.
+#Class to rename a specific file. User can choose a specific name for file.
 class RenameManual(ContentManager):
     def __init__(self, path: str, file_type: str, file_name: str, new_file_name: str):
         ContentManager.__init__(self, path, file_type, file_name, new_file_name, '')
