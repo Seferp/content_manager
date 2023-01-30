@@ -94,8 +94,6 @@ class TestRenameManual(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.path_dir)
-
-
     """
     def test_make_direction(self):
         pass
