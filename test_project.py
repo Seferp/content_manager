@@ -36,20 +36,24 @@ class TestRenameAuto(unittest.TestCase):
         assert os.path.exists(os.path.join(self.path_dir, 'test_name7.docx'))
 
     def test_rename_auto_to_check_file_exist_error(self):
-        test1 = RenameAuto(self.path_dir, 'txt', 'test_name', 0)
-        test2 = RenameAuto(self.path_dir, 'docx', 'test_name', 3)
-        test1.rename_auto()
-        test2.rename_auto()
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
+        test1 = RenameAuto(self.path_dir, 'txt', 'test', 0)
+        test2 = RenameAuto(self.path_dir, 'docx', 'test', 3)
+        with self.assertRaises(FileExistsError):
+            test1.rename_auto()
+            test2.rename_auto()
+
+    def test_rename_auto_special_characters(self):
+        test1 = RenameAuto(self.path_dir, 'txt', 'New>', 0)
+        test2 = RenameAuto(self.path_dir, 'txt', 'New:', 0)
+        test3 = RenameAuto(self.path_dir, 'txt', 'New/', 0)
+        test4 = RenameAuto(self.path_dir, 'txt', 'New*', 0)
+        test5 = RenameAuto(self.path_dir, 'txt', 'New|', 0)
+        with self.assertRaises(NameError):
+            test1.rename_auto()
+            test2.rename_auto()
+            test3.rename_auto()
+            test4.rename_auto()
+            test5.rename_auto()
 
     def tearDown(self):
         shutil.rmtree(self.path_dir)
@@ -79,22 +83,34 @@ class TestRenameManual(unittest.TestCase):
         assert os.path.exists(os.path.join(self.path_dir, 'test_name.css'))
 
     def test_rename_manual_to_check_file_exist_error(self):
-        test1 = RenameManual(self.path_dir, 'txt', 'test', 'test_name')
-        test2 = RenameManual(self.path_dir, 'jpg', 'test', 'test_name')
-        test3 = RenameManual(self.path_dir, 'docx', 'test', 'test_name')
-        test4 = RenameManual(self.path_dir, 'css', 'test', 'test_name')
-        test1.rename_manual()
-        test2.rename_manual()
-        test3.rename_manual()
-        test4.rename_manual()
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
-        assert FileExistsError
+        test1 = RenameManual(self.path_dir, 'txt', 'test', 'test')
+        test2 = RenameManual(self.path_dir, 'jpg', 'test', 'test')
+        test3 = RenameManual(self.path_dir, 'docx', 'test', 'test')
+        test4 = RenameManual(self.path_dir, 'css', 'test', 'test')
+        with self.assertRaises(FileExistsError):
+            test1.rename_manual()
+            test2.rename_manual()
+            test3.rename_manual()
+            test4.rename_manual()
+
+    def test_rename_auto_special_characters(self):
+        test1 = RenameManual(self.path_dir, 'txt', 'test', 'New>')
+        test2 = RenameManual(self.path_dir, 'txt', 'test', 'New:')
+        test3 = RenameManual(self.path_dir, 'txt', 'test', 'New/')
+        test4 = RenameManual(self.path_dir, 'txt', 'test', 'New*')
+        test5 = RenameManual(self.path_dir, 'txt', 'test', 'New|')
+        with self.assertRaises(NameError):
+            test1.rename_manual()
+            test2.rename_manual()
+            test3.rename_manual()
+            test4.rename_manual()
+            test5.rename_manual()
 
     def tearDown(self):
         shutil.rmtree(self.path_dir)
-    """
+
+
+"""
     def test_make_direction(self):
         pass
 
