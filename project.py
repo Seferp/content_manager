@@ -1,4 +1,4 @@
-from os import listdir, rename, mkdir, path, remove
+from os import listdir, rename, mkdir, path, remove, getcwd
 from shutil import move
 from re import search
 import re
@@ -50,7 +50,8 @@ class RenameManual(ContentManager):
 
         path_file = path.join(self.file_path, (self.file_name+self.file_type))
         path_new_name = path.join(self.file_path, new_name)
-
+        if not path.exists(path_file):
+            raise FileNotFoundError
         if path.exists(path_new_name):
             raise FileExistsError
         else:
@@ -119,7 +120,7 @@ class Search(ContentManager):
             if re.search(self.file_name, file):
                 self.file_list.append(file)
         if len(self.file_list) == 0:
-            print("No files found")
+            raise FileNotFoundError
         else:
             print(*self.file_list, sep='\n')
 
@@ -132,8 +133,10 @@ class Create(ContentManager):
 
     def create_text_file(self):
         new_file_path = path.join(self.file_path, self.new_file_name+self.file_type)
+        if not self.file_type != 'txt' and self.file_type != 'docx':
+            raise TypeError
         if path.exists(new_file_path):
             raise FileExistsError
-
         with open(new_file_path, self.mode) as f:
             f.write(self.new_file_name)
+

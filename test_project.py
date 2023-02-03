@@ -93,7 +93,18 @@ class TestRenameManual(unittest.TestCase):
             test3.rename_manual()
             test4.rename_manual()
 
-    def test_rename_auto_special_characters(self):
+    def test_rename_manual_to_check_file_not_found_error(self):
+        test1 = RenameManual(self.path_dir, 'txt', 'File', 'test')
+        test2 = RenameManual(self.path_dir, 'jpg', 'File', 'test')
+        test3 = RenameManual(self.path_dir, 'docx', 'File', 'test')
+        test4 = RenameManual(self.path_dir, 'css', 'File', 'test')
+        with self.assertRaises(FileNotFoundError):
+            test1.rename_manual()
+            test2.rename_manual()
+            test3.rename_manual()
+            test4.rename_manual()
+
+    def test_rename_manual_special_characters(self):
         test1 = RenameManual(self.path_dir, 'txt', 'test', 'New>')
         test2 = RenameManual(self.path_dir, 'txt', 'test', 'New:')
         test3 = RenameManual(self.path_dir, 'txt', 'test', 'New/')
@@ -219,17 +230,49 @@ class TestSearch(unittest.TestCase):
         test.searching_file()
         self.assertCountEqual(['test0.txt', 'test1.txt', 'test2.txt'], test.file_list)
 
-    # def test_searching_file_when_file_not_exist(self):
-    #     test = Search(self.path_dir, 'File_name')
-    #     test.searching_file()
-    #     self.assertEqual("No files found", test.searching_file())
+    def test_searching_file_when_file_not_exist(self):
+        test = Search(self.path_dir, 'File')
+        with self.assertRaises(FileNotFoundError):
+            test.searching_file()
 
     def tearDown(self):
         shutil.rmtree(self.path_dir)
 
 
-"""
+class TestCreate(unittest.TestCase):
+
+    def setUp(self):
+        self.path_dir = os.getcwd() + '\\' + 'Test'
+        os.mkdir(self.path_dir)
+        open(os.path.join(self.path_dir, 'File1.txt'), 'x').close()
+        open(os.path.join(self.path_dir, 'File2.docx'), 'x').close()
 
     def test_create_text_file(self):
-        pass
-"""
+        test1 = Create(self.path_dir, 'txt', 'test1')
+        test2 = Create(self.path_dir, 'docx', 'test2')
+        test1.create_text_file()
+        test2.create_text_file()
+        assert os.path.exists(os.path.join(self.path_dir, 'test1.txt'))
+        assert os.path.exists(os.path.join(self.path_dir, 'test2.docx'))
+
+    def test_create_text_file_when_file_exist(self):
+        test1 = Create(self.path_dir, 'txt', 'File1')
+        test2 = Create(self.path_dir, 'docx', 'File2')
+
+        with self.assertRaises(FileExistsError):
+            test1.create_text_file()
+            test2.create_text_file()
+
+    def test_create_text_file_when_file_type_is_wrong(self):
+        test1 = Create(self.path_dir, 'jpg', 'test1')
+        test2 = Create(self.path_dir, 'css', 'test2')
+        test3 = Create(self.path_dir, 'csv', 'test3')
+        test4 = Create(self.path_dir, 'py', 'test4')
+
+        with self.assertRaises(TypeError):
+            test1.create_text_file()
+            test2.create_text_file()
+            test3.create_text_file()
+            test4.create_text_file()
+    def tearDown(self):
+        shutil.rmtree(self.path_dir)
