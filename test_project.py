@@ -158,6 +158,7 @@ class TestNewDirection(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.path_dir)
 
+
 class TestMove(unittest.TestCase):
 
     def setUp(self):
@@ -166,7 +167,6 @@ class TestMove(unittest.TestCase):
         os.mkdir(self.path_dir)
         os.mkdir(self.new_path_dir)
         open(os.path.join(self.path_dir, 'test.txt'), 'x').close()
-
 
     def test_files_move_to_new_location(self):
         test1 = Move(self.path_dir, 'txt', 'test', self.new_path_dir)
@@ -182,6 +182,7 @@ class TestMove(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.path_dir)
         shutil.rmtree(self.new_path_dir)
+
 
 class TestRemove(unittest.TestCase):
 
@@ -202,6 +203,7 @@ class TestRemove(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.path_dir)
+
 
 class TestSearch(unittest.TestCase):
 
