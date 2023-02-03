@@ -64,10 +64,14 @@ class NewDirection(ContentManager):
         self.quantity_folders = quantity_folders
 
     def make_direction(self):
+        if re.search(r"[\\,/,*,:,?,\",<,>,|]", self.folder_name):
+            raise NameError
         if self.quantity_folders < 1:
             raise ValueError
         elif self.quantity_folders == 1:
             path_folder = path.join(self.file_path, self.folder_name)
+            if path.exists(path_folder):
+                raise FileExistsError
             mkdir(path_folder)
         else:
             for number in range(1, self.quantity_folders + 1):
@@ -79,7 +83,6 @@ class NewDirection(ContentManager):
 class Move(ContentManager):
     def __init__(self, file_path: str, file_type: str, file_name: str, new_path: str):
         ContentManager.__init__(self, file_path, file_type, file_name, '', '')
-
         self.new_path = new_path
 
     def files_move(self):
@@ -108,17 +111,17 @@ class Remove(ContentManager):
 class Search(ContentManager):
     def __init__(self, file_path: str, file_name: str):
         ContentManager.__init__(self, file_path, '', file_name, '', '')
+        self.file_list = []
 
     def searching_file(self):
         files = listdir(self.file_path)
-        files_list = []
         for file in files:
-            if search(self.file_name, file):
-                files_list.append(file)
-        if len(files_list) == 0:
-            print("No file found")
+            if re.search(self.file_name, file):
+                self.file_list.append(file)
+        if len(self.file_list) == 0:
+            print("No files found")
         else:
-            print(*files_list, sep='\n')
+            print(*self.file_list, sep='\n')
 
 
 # Class to create file with file type: ".docx" and ".txt".
