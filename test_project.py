@@ -1,4 +1,4 @@
-from project import RenameAuto, RenameManual, NewDirection, Move, Remove, Search, Create
+from project import RenameAuto, RenameManual, NewDirection, Move, Remove, Search
 import unittest
 import os
 import shutil
@@ -235,44 +235,5 @@ class TestSearch(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             test.searching_file()
 
-    def tearDown(self):
-        shutil.rmtree(self.path_dir)
-
-
-class TestCreate(unittest.TestCase):
-
-    def setUp(self):
-        self.path_dir = os.getcwd() + '\\' + 'Test'
-        os.mkdir(self.path_dir)
-        open(os.path.join(self.path_dir, 'File1.txt'), 'x').close()
-        open(os.path.join(self.path_dir, 'File2.docx'), 'x').close()
-
-    def test_create_text_file(self):
-        test1 = Create(self.path_dir, 'txt', 'test1')
-        test2 = Create(self.path_dir, 'docx', 'test2')
-        test1.create_text_file()
-        test2.create_text_file()
-        assert os.path.exists(os.path.join(self.path_dir, 'test1.txt'))
-        assert os.path.exists(os.path.join(self.path_dir, 'test2.docx'))
-
-    def test_create_text_file_when_file_exist(self):
-        test1 = Create(self.path_dir, 'txt', 'File1')
-        test2 = Create(self.path_dir, 'docx', 'File2')
-
-        with self.assertRaises(FileExistsError):
-            test1.create_text_file()
-            test2.create_text_file()
-
-    def test_create_text_file_when_file_type_is_wrong(self):
-        test1 = Create(self.path_dir, 'jpg', 'test1')
-        test2 = Create(self.path_dir, 'css', 'test2')
-        test3 = Create(self.path_dir, 'csv', 'test3')
-        test4 = Create(self.path_dir, 'py', 'test4')
-
-        with self.assertRaises(TypeError):
-            test1.create_text_file()
-            test2.create_text_file()
-            test3.create_text_file()
-            test4.create_text_file()
     def tearDown(self):
         shutil.rmtree(self.path_dir)

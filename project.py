@@ -123,20 +123,3 @@ class Search(ContentManager):
             raise FileNotFoundError
         else:
             print(*self.file_list, sep='\n')
-
-
-# Class to create file with file type: ".docx" and ".txt".
-class Create(ContentManager):
-    def __init__(self, file_path: str, file_type: str, new_file_name: str):
-        ContentManager.__init__(self, file_path, file_type, '', new_file_name, '')
-        self.mode = 'x'
-
-    def create_text_file(self):
-        new_file_path = path.join(self.file_path, self.new_file_name+self.file_type)
-        if not self.file_type != 'txt' and self.file_type != 'docx':
-            raise TypeError
-        if path.exists(new_file_path):
-            raise FileExistsError
-        with open(new_file_path, self.mode) as f:
-            f.write(self.new_file_name)
-
